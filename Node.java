@@ -1,4 +1,9 @@
-public class Node<T>{
+
+/**
+ *
+ * @param <T>
+ */
+ class Node<T>{
     public T data;
     public Node<T> next;
     public Node () {
@@ -9,7 +14,7 @@ public class Node<T>{
         data = val;
         next = null;
     }
-
+    // Setters/Getters...
 
     public T getData() {
         return data;
@@ -26,5 +31,6 @@ public class Node<T>{
     public void setNext(Node<T> next) {
         this.next = next;
     }
+        
 
 }
