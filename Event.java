@@ -7,14 +7,6 @@
  *
  * @author munia
  */
-
-
-
-
-import java.util.*;
-
-
-
 public class Event implements Comparable<Event> {
     String event_title;
     String date;
@@ -59,25 +51,25 @@ public class Event implements Comparable<Event> {
 
     
     public String toString() {
-        String str = "";
+        String s = "";
         contacts_names.findfirst();
          
          while(!contacts_names.last())
          {
-             str += contacts_names.retrieve() + " ";
+             s += contacts_names.retrieve() + " ";
              contacts_names.findnext();
          }
        return "Event title: " + event_title +
                     "\nEvent date and time (MM/DD/YYYY HH:MM): " + date + time +
                    "\nEvent location: " + location + "\n" +
-                    "\nContacts names:"+ str;
+                    "\nContacts names:"+ s;
          
           
     }
    
-    public int compareTo(Event obj)  {
+    public int compareTo(Event e)  {
        
-            return this.event_title.compareToIgnoreCase(obj.event_title);
+            return this.event_title.compareToIgnoreCase(e.event_title);
            }
 
 }
