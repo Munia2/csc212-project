@@ -1,9 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 
 /**
  *
- * @param <T>
+ * @author munia
  */
- public class Node<T>{
+public class Node<T>{
     public T data;
     public Node<T> next;
     public Node () {
@@ -14,7 +18,7 @@
         data = val;
         next = null;
     }
-    // Setters/Getters...
+
 
     public T getData() {
         return data;
@@ -31,6 +35,6 @@
     public void setNext(Node<T> next) {
         this.next = next;
     }
-        
+    
 
 }

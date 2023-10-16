@@ -1,79 +1,108 @@
-public class Contact implements Comparable<Contact>{
-    private String name;
-    private String phoneNumber;
-    private String email;
-    private String address;
-    private String birthday;
-    private String notes;
-    private LinkedList<Event> contact_events = new LinkedList<Event>();
-   
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 
-    public Contact(String name, String phoneNumber, String email, String address, String birthday, String notes) {
+/**
+ *
+ * @author munia
+ */
+public class Contact implements Comparable<Contact> {
+    private String name;
+    private String phonenumber;
+    private String emailaddress;
+    private String address;
+    private String birthday; 
+    private String notes;
+    private LinkedList<Event> events; 
+   
+    public Contact() {
+        name = "";
+        phonenumber = "";
+        emailaddress = "";
+        address = "";
+        birthday = null;
+        notes = "";
+        events = new LinkedList<Event>();
+    }
+
+    public Contact(String name, String phonenumber, String emailaddress, String address, String birthday, String notes) {
         this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
+        this.phonenumber = phonenumber;
+        this.emailaddress = emailaddress;
         this.address = address;
         this.birthday = birthday;
         this.notes = notes;
+        events = new LinkedList<Event>();
     }
 
-    public int compareTo(Contact c){
-        return name.compareTo(c.name);
+   
+    public String toString() {
+        return "\nName: " + name +
+                    "\nPhone Number: " + phonenumber +
+                    "\nEmail Address: " + emailaddress +
+                    "\nAddress: " +  address +
+                    "\nBirthday: " + birthday +
+                    "\nNotes: " + notes + "\n";
     }
-        // compare two names
-//        int len1 = name.length();
-//        int len2 = c.name.length();
-//        int shortest = Math.min(len1, len2);
-//  
-//        for (int i = 0; i < shortest; i++) {
-//            int name1ch = (int)name.charAt(i);
-//            int name2ch = (int)c.name.charAt(i);
-//  
-//            if (name1ch != name2ch) {
-//                return name1ch - name2ch;
-//            }
-//          try{
-
-            
-//            return name.compareTo(c.name);
-//        }
-//        catch (Exception e)
-//        {
-//             //To change body of generated methods, choose Tools | Templates.
-//            throw new UnsupportedOperationException("Not supported yet.");
-//        }    
-    
-        
-  
-        // Edge case for strings like
-        // String 1="Geeks" and String 2="Geeksforgeeks"
-//        if (len1 != len2) {
-//            return len1 - len2;
-//        }
-  
-        // If none of the above conditions is true,
-        // it implies both the strings are equal
-//        else {
-//            return 0;
-//        }
-//    }
-
 
     
-//    public Event getEvent() {
-//        return event;
-//    }
+   public boolean addEvent(Event e) {
+       
+       
+    if (!events.empty()) {
+        events.findfirst();
+        while (!events.last()) {
+            if ((events.retrieve().getDate().equals(e.getDate()))
+                    && events.retrieve().getTime().equals(e.getTime())) {
+                return false; // Event with the same date and time already exists
+            }
+            events.findnext();
+        }
+
+        // Check the last event outside the loop
+        if ((events.retrieve().getDate().equals(e.getDate()))
+                && events.retrieve().getTime().equals(e.getTime())) {
+            return false; // Event with the same date and time already exists
+        }
+    }
+    events.insert(e);
+    return true;
+   }
+     public boolean removeEvent(String title)
+    {
+        if (events.empty()){
+         System.out.println("there is no events available");
+         return false;}
+         
+        Event e = new Event();
+        e.setTitle(title);
+        if (events.search(e))
+        {
+            events.remove(e);
+            return true;
+        }
+        return false;
+    }
+    
+   
+   public int compareTo(Contact c) {
+        return this.name.compareTo(c.name);
+}
 
     public String getName() {
         return name;
     }
+    public void setName(String n){
+        name = n;
+    }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhonenumber() {
+        return phonenumber;
     }
 
     public String getEmail() {
-        return email;
+        return emailaddress;
     }
 
     public String getAddress() {
@@ -83,21 +112,21 @@ public class Contact implements Comparable<Contact>{
     public String getBirthday() {
         return birthday;
     }
-
-
-    public LinkedList getContact_Events() {
-        return contact_events;
-    }
     
-    public void displayEvents(){
-        
+
+    public LinkedList<Event> getEvents() {
+        return events;
     }
 
-    @Override
-    public String toString() {
-        return "Name:" + name + "\nPhoneNumber:" + phoneNumber + "\nEmail:" + email + "\nAddress:" + address + "\nBirthday:" + birthday + "\nNotes:" + notes ;
-    }
-   
+  
+    
+
+
+
+
+
+
+
+
+    
 }
-
-
