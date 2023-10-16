@@ -8,70 +8,83 @@
  * @author munia
  */
 public class Event implements Comparable<Event> {
-    String event_title;
+    String title;
     String date;
     String time;
     String location;
-    LinkedList <String> contacts_names;//the contact that involved in the event
-
-    public Event() {
-        this.event_title = "";
-        this.date = "";
-        this.time = "";
-        this.location = "";
-        this.contacts_names = new LinkedList<String> ();
-    }
+    //String contact_name; 
+    LinkedList <Contact> contacts = new LinkedList<Contact>();
+    LinkedList <Event> events = new LinkedList<Event>();
     
-    public Event(String eTitle, String date, String time, String location, String contact) {
-        this.event_title = eTitle;
+    
+    
+    public Event(String eTitle, String date, String time, String location,Contact contact) {
+        this.title = eTitle;
         this.date = date;
         this.time = time;
         this.location = location;
-        this.contacts_names = new LinkedList<String> ();//list because contact can have more than one event
-        contacts_names.insert(contact);
+        //this.contact_name = contact.getName();
+        contacts.insert(contact);
+        //this.contacts_names = new LinkedList<String> ();//list because contact can have more than one event
+        //contacts_names.insert(contact.getName());
     }
-
-    public void addContact (String contact)
-    {
-        contacts_names.insert(contact);
-    }
-    
+ 
     public void removeContact()
     {
-        String name = contacts_names.retrieve();
-        contacts_names.remove();
+        String name = contacts.retrieve().getName();
+        contacts.remove();
             if ( name != null)
-            contacts_names.remove();
+            contacts.remove();
             
     }
 
     public void setDate(String date) {
         this.date = date;
     }
-
-    
-    public String toString() {
-        String s = "";
-        contacts_names.findfirst();
-         
-         while(!contacts_names.last())
-         {
-             s += contacts_names.retrieve() + " ";
-             contacts_names.findnext();
-         }
-       return "Event title: " + event_title +
-                    "\nEvent date and time (MM/DD/YYYY HH:MM): " + date + time +
-                   "\nEvent location: " + location + "\n" +
-                    "\nContacts names:"+ s;
-         
-          
-    }
-   
+                    
     public int compareTo(Event e)  {
        
-            return this.event_title.compareToIgnoreCase(e.event_title);
+            return title.compareToIgnoreCase(e.title);
            }
 
+    public String getDate() {
+        return date;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getTime() {
+        return time;
+    }
+    
+
+//    public String getContact_name() {
+//        return contact_name;
+//    }
+    
+    
+
+    public LinkedList<Contact> getContacts() {
+        return contacts;
+    }
+
+    public String toString() {
+        String s = "";
+        contacts.findfirst();
+         
+         while(!contacts.last())
+         {
+             s += contacts.retrieve().getName() + " ";
+             contacts.findnext();
+         }
+       return "Event title: " + title +
+                    "\nContacts names:"+ s +"\nEvent date and time (MM/DD/YYYY HH:MM): " + date +" "+ time +
+                   "\nEvent location: " + location + "\n" ;
+    
+    
+    }
 }
 
 

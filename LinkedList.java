@@ -1,9 +1,4 @@
 /**
- * LinkedList ADT: This class will represent the linked list data structure used to store the contacts. 
- It should have methods for adding, searching, and deleting contacts from the list.
-**/
-
-/**
  * @param <T>
  */
 
@@ -24,9 +19,6 @@
         return current.next == null;
         }
     
-    public boolean full () {
-        return false; }
-    
     public void findfirst () {
         current = head;
         }
@@ -37,10 +29,7 @@
     public T retrieve () {
         return current.data; }
     
-    public void update (T val) {
-        current.data = val; }
-    
-    public void insert(T c){
+        public void insert(T c){
         
         Node<T> n = new Node<T> (c);
         if (empty()){
@@ -48,8 +37,9 @@
         }
         else
             { 
-                Node<T> tmp = head , ptmp =null;
-                if((((Contact)c).compareTo((Contact)tmp.data))< 0)
+                Node<T> p = head , q =null;
+                
+                if((((Contact)c).compareTo((Contact)p.data))< 0)    
                 {
                     n.next = head;
                     head = current =  n;
@@ -57,19 +47,53 @@
                 }
                 else
                 {
-                while(tmp!=null && (((Contact)c)).compareTo(((Contact)tmp.data))>= 0  )
+                while(p!=null && (((Contact)c)).compareTo(((Contact)p.data))>= 0  )
                 {
-                    ptmp = tmp;
-                    tmp = tmp.next;
+                    q = p;
+                    p = p.next;
                  }
-                ptmp.next = n;
-                n.next = tmp;
+                q.next = n;
+                n.next = p;
                 current = n;
                 } 
             }    
                 
            
     }
+        
+        public void insertEvent(T e){
+        
+        Node<T> n = new Node<T> (e);
+        if (empty()){
+            current = head = n;  
+        }
+        else
+            { 
+                Node<T> p = head , q =null;
+                
+                if((((Event)e).compareTo((Event)p.data))< 0)    
+                {
+                    n.next = head;
+                    head = current =  n;
+                    
+                }
+                else
+                {
+                while(p!=null && (((Event)e)).compareTo(((Event)p.data))>= 0  )
+                {
+                    q = p;
+                    p = p.next;
+                 }
+                q.next = n;
+                n.next = p;
+                current = n;
+                } 
+            }    
+                
+           
+    }
+    
+    
     
     public void remove(){
         if (current == head)
@@ -114,48 +138,14 @@
         return false;
     }
     }
-       
 
     
-    
-    public void insertAtEnd (T val) {
-            if (empty()) {
-                    current = head = new Node (val);
-            }
-            else {
-                    while (current.next != null )
-                        current = current.next;
-                    
-                    current.next = new Node (val);
-                    current = current.next;
-            }
-           
-    }
-
-    
-    public void tmp(Contact c){
-        
-        if (empty())
-            System.out.println("empty");;
-        
-        Node<T> tmp  = head;
-        System.out.println("tmp data"+tmp.data); 
-        System.out.println(c);
-        while ((tmp != null) && (tmp.data.equals(c))){
-            tmp = tmp.next; 
-           System.out.println(tmp.data);
-        }
-            
-        
-        if ((tmp != null) && (tmp.data.equals(c)))
-        {
-            current = tmp;
-            System.out.println(tmp.data);;
-        }
-        
-     
-    }
     public void display() {
+        
+        if (empty()){
+            System.out.println("the list is empty");
+            return;
+        }
             findfirst();
             while(!last()){
                 System.out.println(retrieve());
