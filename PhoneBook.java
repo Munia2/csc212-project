@@ -116,6 +116,9 @@ public class PhoneBook {
 
     public static void searchCriteria()
     {
+        if (contacts_list.empty())
+            System.out.println("There is no contact");
+        else{
         System.out.println("Enter search criteria:\n" +
                             "1. Name\n" +
                             "2. Phone Number\n" +
@@ -125,11 +128,6 @@ public class PhoneBook {
         System.out.print("\nEnter your choice:");
         
         int choice = in.nextInt();
-        if (contacts_list.empty())
-            System.out.println("There is no contact");
-        else
-        {
-            contacts_list.findfirst();
         switch(choice)
         {
             case 1:
@@ -208,8 +206,7 @@ public class PhoneBook {
        }
         
     public static void searchEmail(String email){
-        //LinkedList<Contact> l = new LinkedList<Contact>();
-        
+        contacts_list.findfirst();
         if (contacts_list.empty()){
             System.out.println("The contact email address is not exist");
             return;
@@ -230,8 +227,7 @@ public class PhoneBook {
     }
  
    public static void searchAddress(String address){
-       //LinkedList<Contact> l = new LinkedList<Contact>();
-        
+        contacts_list.findfirst();
         while(!contacts_list.last()){
             if (contacts_list.retrieve().getAddress().equalsIgnoreCase(address))
                 System.out.println(contacts_list.retrieve());
@@ -249,7 +245,7 @@ public class PhoneBook {
     }
    
    public static void searchBirthday(String birthday){
-       //LinkedList<Contact> l = new LinkedList<Contact>();
+       contacts_list.findfirst();
         if (contacts_list.empty()){
             System.out.println("The contact birthday is not exist");
             return;
@@ -295,13 +291,11 @@ public class PhoneBook {
         
         System.out.print("Enter the contact\'s name: ");
         in.nextLine();
-        //c.setName(in.nextLine());
        c = searchName(in.nextLine());
         if (contacts_list.empty())
             System.out.println("empty list!");
         else
         {
-            //c = contacts_list.remove(c);
             if ( c == null)
                 System.out.println("Contact doea not exist!");
             else
@@ -317,7 +311,7 @@ public class PhoneBook {
                         if (events_list.search(e))
                         {
                             Event c_event = events_list.retrieve();
-                            c_event.removeContact(c.getName());
+                            c_event.getContacts_names().remove(c.getName());
                             if (c_event.getContacts_names().empty())
                             {
                                 events_list.remove(e);
@@ -341,7 +335,6 @@ public class PhoneBook {
                             }
                             else{
                             System.out.println("Contact Deleted Successfully !");
-                            System.out.println(c);
                             }
                         } 
         
@@ -352,21 +345,21 @@ public class PhoneBook {
    
 
  
- public static boolean is_conflict(Event e){
+ public static boolean is_conflict(String d,String t,String cn){
        if (!events_list.empty()) {
+           
         events_list.findfirst();
         while (!events_list.last()) {
-            if ((events_list.retrieve().getDate().equals(e.getDate()))
-                    && events_list.retrieve().getTime().equals(e.getTime()) && events_list.retrieve().getContacts_names().retrieve().equalsIgnoreCase(e.getContacts_names().retrieve()) ) {
+            if (events_list.retrieve().getDate().equals(d)
+                    && events_list.retrieve().getTime().equals(t)&& events_list.retrieve().getContacts_names().equals(cn )) {
                 return true; // Event with the same date and time already exists
             }
             events_list.findnext();
         }
-
-        // Check the last event outside the loop
-        if ((events_list.retrieve().getDate().equals(e.getDate()))
-                && events_list.retrieve().getTime().equals(e.getTime())&& events_list.retrieve().getContacts_names().retrieve().equalsIgnoreCase(e.getContacts_names().retrieve())) {
-            return true; // Event with the same date and time already exists
+        
+        if ( events_list.retrieve().getDate().equals(d)
+                && events_list.retrieve().getTime().equals(t)&& events_list.retrieve().getContacts_names().equals(cn) ) {
+            return true; 
         }
     } return false;
 }
@@ -402,18 +395,21 @@ public class PhoneBook {
             System.out.println(" this contact does not exist");
             return;
        }
-       Event e = new Event(title,d,t,loc,cn);
-       
-       
-       if ( !is_conflict(e) ){
-           if (!e.getContacts_names().search(c.getName()))
-                e.getContacts_names().insert(c.getName());
+       Event e;
+          if (searchName(title) != null)
+              e = searchTitle(title);
+          else{
+              e = new Event(title,d,t,loc);
+          }
+          
+         if ( !is_conflict(d,t,cn) ){
+           e.getContacts_names().insert(cn);
            addEvent(e,c);
-           System.out.println("\nEvent Scheduled successfully");
+           System.out.println("\nEvent Scheduled successfully!");
        }
         else  
        {
-               System.out.println("there is conflict event");
+          System.out.println("there is conflict event");
        }   
    }
 // print event details 
@@ -433,7 +429,7 @@ public class PhoneBook {
                   }
                    if (searchName(cn) != null){
                    System.out.println("\ncontact found");
-                   contacts_list.retrieve().getEvents().display();
+                   c.getEvents().display();
                    }
 
                   break;
