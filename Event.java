@@ -22,27 +22,12 @@ public class Event implements Comparable<Event> {
         contacts_names = new LinkedList<String> ();
     }
     
-    public Event(String title, String date, String time, String location, String contact_name) {
+    public Event(String title, String date, String time, String location) {
         this.title = title;
         this.date =  date;
         this.time = time;
         this.location = location;
         this.contacts_names = new LinkedList<String> ();
-        contacts_names.insert(contact_name);
-    }
-
-//    public void addContact (String contact)            
-//    {
-////        if(contacts_names.search(contact)&&contacts_names.)
-//        contacts_names.insert(contact);
-//    }
-    
-    public void removeContact(String contact)
-    {
-            String name = contacts_names.remove(contact);
-            //if ( name != null)
-                //System.out.println("contact is deleted");
-            //System.out.println("contact name is not exist");  
     }
 
     public String toString() {
@@ -64,8 +49,8 @@ public class Event implements Comparable<Event> {
     }
 
  
-    public int compareTo(Event obj){
-        return (this.title.compareToIgnoreCase(obj.title));
+    public int compareTo(Event e){
+        return title.compareToIgnoreCase(e.title));
     }
 
     public String getTitle() {
