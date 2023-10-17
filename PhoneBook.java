@@ -381,13 +381,7 @@ public class PhoneBook {
             System.out.println(" this contact does not exist");
             return;
        }
-       Event e;
-          if (searchName(title) != null)
-              e = searchTitle(title);
-          else{
-              e = new Event(title,d,t,loc);
-          }
-          
+         Event e = new Event(title,d,t,loc);
          if ( !is_conflict(d,t,cn) ){
            e.getContacts_names().insert(cn);
            addEvent(e,c);
@@ -413,10 +407,12 @@ public class PhoneBook {
                   System.out.println("empty list");
                   return;
                   }
-                   if (searchName(cn) != null){
-                   System.out.println("\ncontact found");
-                   c.getEvents().display();
-                   }
+                  Contact c = searchName(cn);
+                  
+                  if (c != null){
+                  System.out.println("\ncontact found");
+                  c.getEvents().display();
+                  }
 
                   break;
               case 2:
