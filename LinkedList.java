@@ -34,7 +34,7 @@ public class LinkedList<T> {
     }
     
 
-public void sorted(T c){
+public void sortedContact(T c){
         
         Node<T> n = new Node<T> (c);
         if (empty()){
@@ -65,10 +65,41 @@ public void sorted(T c){
 
 }
 
+public void sortedEvent(T e){
+        
+        Node<T> n = new Node<T> (e);
+        if (empty()){
+            current = head = n;  
+        }
+        else
+            { 
+                Node<T> p = head , q =null;
+                
+                if((((Event)e).compareTo((Event)head.data))< 0)    
+                {
+                    n.next = head;
+                    head = current =  n;
+                    
+                }
+                else
+                {
+                while(p!=null && (((Event)e)).compareTo(((Event)p.data))>= 0  )
+                {
+                    q = p;
+                    p = p.next;
+                 }
+                q.next = n;
+                n.next = p;
+                current = n;
+                } 
+            }
+
+}
+
         public void insert(T val){
 
         Node<T> tmp;
-        if (empty()) {
+        if (head == null) {
         current = head = new Node<T> (val);
         }
         else {
@@ -85,16 +116,16 @@ public void sorted(T c){
     if (head == null)
         return false;
 
-    Node<T> node = head;
+    Node<T> tmp = head;
     boolean found = false;
     
-    while (node != null) {
-        if (node.data.equals(val)) {
-            current = node;
+    while (tmp != null) {
+        if (tmp.data.equals(val)) {
+            current = tmp;
             found = true;
             break;  // Exit the loop when the value is found
         }
-        node = node.getNext();
+        tmp = tmp.next;
     }
     
     return found;
@@ -111,7 +142,7 @@ public void sorted(T c){
                 head = head.next;
         }
         else {
-                Node tmp = head;
+                Node<T> tmp = head;
 
                 while (tmp.next != current)
                         tmp = tmp.next;

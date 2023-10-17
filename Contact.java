@@ -46,29 +46,7 @@ public class Contact implements Comparable<Contact> {
                     "\nNotes: " + notes + "\n";
     }
 
-    
-   public boolean addEvent(Event e) {
-       
-       
-    if (!events.empty()) {
-        events.findfirst();
-        while (!events.last()) {
-            if ((events.retrieve().getDate().equals(e.getDate()))
-                    && events.retrieve().getTime().equals(e.getTime())) {
-                return false; // Event with the same date and time already exists
-            }
-            events.findnext();
-        }
-
-        // Check the last event outside the loop
-        if ((events.retrieve().getDate().equals(e.getDate()))
-                && events.retrieve().getTime().equals(e.getTime())) {
-            return false; // Event with the same date and time already exists
-        }
-    }
-    events.insert(e);
-    return true;
-   }
+   
      public boolean removeEvent(String title)
     {
         if (events.empty()){
@@ -130,3 +108,25 @@ public class Contact implements Comparable<Contact> {
 
     
 }
+//public boolean addEvent(Event e) {
+       
+       
+//    if (!events.empty()) {
+//        events.findfirst();
+//        while (!events.last()) {
+//            if ((events.retrieve().getDate().equals(e.getDate()))
+//                    && events.retrieve().getTime().equals(e.getTime())) {
+//                return false; // Event with the same date and time already exists
+//            }
+//            events.findnext();
+//        }
+//
+//        // Check the last event outside the loop
+//        if ((events.retrieve().getDate().equals(e.getDate()))
+//                && events.retrieve().getTime().equals(e.getTime())) {
+//            return false; // Event with the same date and time already exists
+//        }
+//    }
+//    events.insert(e);
+//    return true;
+//   }

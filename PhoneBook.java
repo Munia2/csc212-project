@@ -66,12 +66,6 @@ public class PhoneBook {
                 case 7:
                     printAllEvents();
                     break;
-//                case 8:
-//                    System.out.println("Enter the name of the contact that you want to delete his events");
-//                    String n = in.nextLine();
-//                    LinkedList<Event> l = contactEvents(n);
-//                    deleteContactEvents(n,l);
-//                    break;
                 case 8:
                     System.out.println("contact list:");
                     contacts_list.display();
@@ -113,93 +107,12 @@ public class PhoneBook {
                 System.out.println("Contact is already exist!");
                 return;
             }
-//            contacts_list.findfirst();
-//            
-//            while(!contacts_list.last())
-//            {
-//                    if (contacts_list.retrieve().getPhonenumber().equals(pn))
-//                    {
-//                            System.out.println("Contact number is alrady exist!");
-//                            return;
-//                    }
-//                    contacts_list.findnext();
-//            }
-//            if (contacts_list.retrieve().getPhonenumber().equals(pn))
-//                    {
-//                            System.out.println("Contact number is alrady exist!");
-//                            return;
-//                    }
-//        }
         }
-        contacts_list.sorted(c);
+        contacts_list.sortedContact(c);
         if (contacts_list.retrieve().equals(c))
             System.out.println("\n\nContact added successfully!");
     }
         
-//        Contact c = new Contact(cn,pn,ea,ca,bd, n);
-//        
-//        if (!contacts_list.empty()){
-            
-//            if ( searchName(cn) != null){
-//                System.out.println("Contact name is already exist!");
-//                return;
-//            }
-//                
-//                
-//            
-//            if ( searchPhone(pn) != null){
-//                System.out.println("Contact number is already exist!");
-//                return;
-//            }
-//            contacts_list.findfirst();
-//            
-//            while(!contacts_list.last())
-//            {
-//                    if (contacts_list.retrieve().getPhonenumber().equals(pn))
-//                    {
-//                            System.out.println("Contact number is already exist!");
-//                            return;
-//                            
-//                    }
-//                    contacts_list.findnext();
-//            }
-//            if (contacts_list.retrieve().getPhonenumber().equals(pn))
-//                    {
-//                            System.out.println("Contact number is alrady exist!");
-//                            return;
-//                            
-//                    }
-//            contacts_list.findfirst();
-//            
-//            while(!contacts_list.last())
-//            {
-//                    if (contacts_list.retrieve().getName().equals(cn))
-//                    {
-//                            System.out.println("Contact name is already exist!");
-//                            return;
-//                            
-//                    }
-//                    contacts_list.findnext();
-//            }
-//            if (contacts_list.retrieve().getName().equals(cn))
-//                    {
-//                            System.out.println("Contact name is alrady exist!");
-//                            return;
-//                            
-//                    }
-//        
-//        }
-//        
-//        contacts_list.insert(c);
-//        if (contacts_list.retrieve().equals(c))
-//            System.out.println("\n\nContact added successfully!");
-//        
-//
-//    }
-        
-
-    
-    
 
     public static void searchCriteria()
     {
@@ -353,30 +266,52 @@ public class PhoneBook {
                 System.out.println(contacts_list.retrieve());
         
    }
+   //search for the event titlle if it will return the event if its exist or it will return null;
+   public static Event searchTitle(String n){
+       
+       if(events_list.empty())
+           return null;
+       
+       events_list.findfirst();
+       while(!events_list.last())
+       {
+           if (events_list.retrieve().getTitle().equalsIgnoreCase(n))
+               return events_list.retrieve();
+           
+           events_list.findnext();
+       }
+       
+       if (events_list.retrieve().getTitle().equalsIgnoreCase(n))
+           return events_list.retrieve();
+       
+       return null;
+     
+}
    
-   
+ // Delete a contact and all the events involved  if it is no with another contact
  public static void deleteContact()
     {
         Contact c = new Contact();
         
         System.out.print("Enter the contact\'s name: ");
         in.nextLine();
-        c.setName(in.nextLine());
-       
+        //c.setName(in.nextLine());
+       c = searchName(in.nextLine());
         if (contacts_list.empty())
-            System.out.println("Contact not found!");
+            System.out.println("empty list!");
         else
         {
-            c = contacts_list.remove(c);
+            //c = contacts_list.remove(c);
             if ( c == null)
-                System.out.println("Contact not found!");
+                System.out.println("Contact doea not exist!");
             else
             {
-                if (! c.getEvents().empty())
+                contacts_list.remove(c);
+                if (!c.getEvents().empty())
                 {
                     Event e;
                     c.getEvents().findfirst();
-                    while ( !events_list.last())
+                    while ( !c.getEvents().last())
                     {
                          e = c.getEvents().retrieve();
                         if (events_list.search(e))
@@ -386,15 +321,15 @@ public class PhoneBook {
                             if (c_event.getContacts_names().empty())
                             {
                                 events_list.remove(e);
-                                System.out.println("Delete event, No cantact particapate");
+                                System.out.println("contact event "+e.getTitle() +" is also deleted");
                             }
-                            else
-                                events_list.update(c_event);
-                            
+                            else{
+                            System.out.println("Contact Deleted Successfully !");
+                            }  
                         }
                         c.getEvents().findnext();
                     }
-                    e = c.getEvents().retrieve();
+                        e = c.getEvents().retrieve();
                         if (events_list.search(e))
                         {
                             Event c_event = events_list.retrieve();
@@ -402,24 +337,16 @@ public class PhoneBook {
                             if (c_event.getContacts_names().empty())
                             {
                                 events_list.remove(e);
-                                System.out.println("Delete event, No cantact particapate");
+                                System.out.println("contact event "+e.getTitle() +" is also deleted");
                             }
-                            else
-                                events_list.update(c_event);
+                            else{
                             System.out.println("Contact Deleted Successfully !");
                             System.out.println(c);
+                            }
                         } 
         
         }       
     }
- 
- 
- 
- 
- 
- 
-   
-   
         }
    }
    
@@ -429,20 +356,34 @@ public class PhoneBook {
        if (!events_list.empty()) {
         events_list.findfirst();
         while (!events_list.last()) {
-            if ((events_list.retrieve().getDate().compareTo(e.getDate()) == 0)
-                    && events_list.retrieve().getTime().equals(e.getTime())) {
+            if ((events_list.retrieve().getDate().equals(e.getDate()))
+                    && events_list.retrieve().getTime().equals(e.getTime()) && events_list.retrieve().getContacts_names().retrieve().equalsIgnoreCase(e.getContacts_names().retrieve()) ) {
                 return true; // Event with the same date and time already exists
             }
             events_list.findnext();
         }
 
         // Check the last event outside the loop
-        if ((events_list.retrieve().getDate().compareTo(e.getDate()) == 0)
-                && events_list.retrieve().getTime().equals(e.getTime())) {
+        if ((events_list.retrieve().getDate().equals(e.getDate()))
+                && events_list.retrieve().getTime().equals(e.getTime())&& events_list.retrieve().getContacts_names().retrieve().equalsIgnoreCase(e.getContacts_names().retrieve())) {
             return true; // Event with the same date and time already exists
         }
     } return false;
 }
+ //add event if it is not exist in the event list
+   public static void addEvent(Event e, Contact c){
+       
+       Event find = searchTitle(e.getTitle());
+       
+       if (find == null){
+           events_list.sortedEvent(e);
+           c.getEvents().insert(e);
+       }
+       else{
+           c.getEvents().insert(e);
+       }
+        
+    } 
 //schedule event  
     public static void scheduleEvent(){
           System.out.print("Enter the Event title:");
@@ -457,61 +398,44 @@ public class PhoneBook {
           in.nextLine();
           String loc = in.nextLine();
           Contact c = searchName(cn);
-          Event e = new Event(title,d,t,loc,cn); 
-       if(c == null){
-           System.out.println(" this contact does not exist");
-           return;
+          if(c == null){
+            System.out.println(" this contact does not exist");
+            return;
        }
+       Event e = new Event(title,d,t,loc,cn);
        
-       if (c != null && !is_conflict(e) ){
-           e.getContacts_names().sorted(c.getName());
-           addEvent(e);
+       
+       if ( !is_conflict(e) ){
+           if (!e.getContacts_names().search(c.getName()))
+                e.getContacts_names().insert(c.getName());
+           addEvent(e,c);
            System.out.println("\nEvent Scheduled successfully");
        }
         else  
        {
-           if(is_conflict(e))
                System.out.println("there is conflict event");
-       }
-       
-       
-       
+       }   
    }
 // print event details 
       public static void printEventDetails(){
           System.out.println("Enter search criteria:\n1.contact name \n2.Event title\n");
-          System.out.println("Enter your choice");
+          System.out.print("Enter your choice:");
           int choice = in.nextInt();
           switch(choice){
-              case 1:
-                 // Contact c= new Contact();
-                 
+              case 1:                 
                   System.out.print("Enter contact name:");
-                  
-                  //c.setName(in.nextLine());
+                  in.nextLine();
                   String cn = in.nextLine();
-                  //Contact c =searchName(cn);
-                  //LinkedList<Event>l = new LinkedList();//= .//contactEvents(cn);
-                 // if (!contacts_list.empty()){
-                  if (contacts_list.empty())                 
+
+                  if (contacts_list.empty()){                 
                   System.out.println("empty list");
-                   //break;
+                  return;
+                  }
                    if (searchName(cn) != null){
                    System.out.println("\ncontact found");
                    contacts_list.retrieve().getEvents().display();
                    }
-                 
-                    
-                  //if(contacts_list.search(c)){
-                 // c=contacts_list.retrieve();
-                  //c.events_list.findfirst();
-                  //while(!c.events_list.last()){
-                  
-                  //}
-//                  else{
-//                 
-//                    contacts_list.display();
-//                }
+
                   break;
               case 2:
                   System.out.print("Enter events title:");
@@ -553,43 +477,33 @@ public class PhoneBook {
                 System.out.println(contacts_list.retrieve() + "\n");
             contacts_list.findnext();
             }
-           
+            names = contacts_list.retrieve().getName().split(" ");
             if (names[0].equals(fname))
                 System.out.println(contacts_list.retrieve() + "\n");
 
     }
-//search for the event titlle if it will return the event if its exist or it will return null;
-   public static Event searchTitle(String n){
-       
-       if(events_list.empty())
-           return null;
-       
-       events_list.findfirst();
-       while(!events_list.last())
-       {
-           if (events_list.retrieve().getTitle().equals(n))
-               return events_list.retrieve();
-           
-           events_list.findnext();
-       }
-       
-       if (events_list.retrieve().getTitle().equals(n))
-           return events_list.retrieve();
-       
-       return null;
-     
+    
+    //Print all events alphabetically 
+    public static void printAllEvents(){
+        if (!events_list.empty())
+        {
+            events_list.findfirst();
+            
+            while(!events_list.last())
+            
+            {
+                System.out.println(events_list.retrieve().getTitle());
+                events_list.findnext();
+            }
+            System.out.println(events_list.retrieve().getTitle());
+                events_list.findnext();
+        }
+        else
+            System.out.println("empty list");
+    }
 }
-   //add event if it is not exist in the event list
-   public static void addEvent(Event e){
-       
-       Event find = searchTitle(e.getTitle());
-       
-       if (find == null){
-           events_list.sorted(e);
-       }
 
-        
-    } 
+   
    //return the Events in contact
 //   public static LinkedList<Event> contactEvents(String n){
 //       Contact c = searchName(n);
@@ -610,25 +524,7 @@ public class PhoneBook {
 //       
 //   }
    
-   //Print all events alphabetically // O(n)
-    public static void printAllEvents(){
-        if (!events_list.empty())
-        {
-            events_list.findfirst();
-            
-            while(!events_list.last())
-            
-            {
-                System.out.println(events_list.retrieve().getTitle());
-                events_list.findnext();
-            }
-            System.out.println(events_list.retrieve().getTitle());
-                events_list.findnext();
-        }
-        else
-            System.out.println("No events found !");
-    }
-}
+   
 
                 
     

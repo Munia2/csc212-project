@@ -22,26 +22,27 @@ public class Event implements Comparable<Event> {
         contacts_names = new LinkedList<String> ();
     }
     
-    public Event(String title, String date, String time, String location, String contact) {
+    public Event(String title, String date, String time, String location, String contact_name) {
         this.title = title;
         this.date =  date;
         this.time = time;
         this.location = location;
         this.contacts_names = new LinkedList<String> ();
-        contacts_names.sorted(contact);
+        contacts_names.insert(contact_name);
     }
 
-    public void addContact (String contact)
-    {
-         contacts_names.sorted(contact);
-    }
+//    public void addContact (String contact)            
+//    {
+////        if(contacts_names.search(contact)&&contacts_names.)
+//        contacts_names.insert(contact);
+//    }
     
-    public boolean removeContact(String contact)
+    public void removeContact(String contact)
     {
             String name = contacts_names.remove(contact);
-            if ( name != null)
-                return true; 
-            return false;
+            //if ( name != null)
+                //System.out.println("contact is deleted");
+            //System.out.println("contact name is not exist");  
     }
 
     public String toString() {
@@ -55,9 +56,10 @@ public class Event implements Comparable<Event> {
         }
          
         s += contacts_names.retrieve();
+        
 
-          return "\nEvent title: " + title + "\nContact name: "+ s +
-                    "\nEvent date and time (MM/DD/YYYY HH:MM): " + date + time +
+          return "\nEvent title: " + title +"\nContact name: "+s+
+                    "\nEvent date and time (MM/DD/YYYY HH:MM): " + date +" "+ time +
                    "\nEvent location: " + location ;
     }
 
