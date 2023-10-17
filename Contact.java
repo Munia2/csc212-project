@@ -1,12 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author munia
- */
 public class Contact implements Comparable<Contact> {
     private String name;
     private String phonenumber;
@@ -65,14 +56,11 @@ public class Contact implements Comparable<Contact> {
     
    
    public int compareTo(Contact c) {
-        return this.name.compareTo(c.name);
+        return name.compareTo(c.name);
 }
 
     public String getName() {
         return name;
-    }
-    public void setName(String n){
-        name = n;
     }
 
     public String getPhonenumber() {
@@ -95,38 +83,4 @@ public class Contact implements Comparable<Contact> {
     public LinkedList<Event> getEvents() {
         return events;
     }
-
-  
-    
-
-
-
-
-
-
-
-
-    
 }
-//public boolean addEvent(Event e) {
-       
-       
-//    if (!events.empty()) {
-//        events.findfirst();
-//        while (!events.last()) {
-//            if ((events.retrieve().getDate().equals(e.getDate()))
-//                    && events.retrieve().getTime().equals(e.getTime())) {
-//                return false; // Event with the same date and time already exists
-//            }
-//            events.findnext();
-//        }
-//
-//        // Check the last event outside the loop
-//        if ((events.retrieve().getDate().equals(e.getDate()))
-//                && events.retrieve().getTime().equals(e.getTime())) {
-//            return false; // Event with the same date and time already exists
-//        }
-//    }
-//    events.insert(e);
-//    return true;
-//   }
