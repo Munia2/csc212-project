@@ -7,44 +7,31 @@
  *
  * @author munia
  */
+
 public class Event implements Comparable<Event> {
+    private boolean type; //if true then it is an event else it is appointment
     private String title;
     private String date;
     private String time;
     private String location;
+    private String contact_name;
     private LinkedList <String> contacts_names;
-
-    public Event() {
-        title = "";
-        date = "";
-        time = "";
-        location = "";
-        contacts_names = new LinkedList<String> ();
-    }
     
-    public Event(String title, String date, String time, String location) {
+    public Event(boolean type, String title, String date, String time, String location, String contact_name) {
+        this.type = type;
         this.title = title;
         this.date =  date;
         this.time = time;
         this.location = location;
+        this.contact_name = contact_name;
         this.contacts_names = new LinkedList<String> ();
     }
 
     public String toString() {
-        String s = "";
         
-        contacts_names.findfirst();
-        while(!contacts_names.last())   
-        {
-            s += contacts_names.retrieve() + ",";
-            contacts_names.findnext();
-        }
-         
-        s += contacts_names.retrieve();
-        
-          return "\nEvent title: " + title +"\nContact name: "+s+
-                    "\nEvent date and time (MM/DD/YYYY HH:MM): " + date +" "+ time +
-                   "\nEvent location: " + location ;
+          return "\nEvent/Appointment title: " + title +"\ncontact name: "+contact_name+
+                    "\nEvent/Appointment date and time (MM/DD/YYYY HH:MM): " + date +" "+ time +
+                   "\nEvent/Appointment location: " + location ;
     }
 
  
@@ -64,11 +51,14 @@ public class Event implements Comparable<Event> {
         return time;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public boolean getType() {
+        return type;
+    }        
+
+    public void setContacts_names(LinkedList<String> contacts_names) {
+        this.contacts_names = contacts_names;
     }
     
-
     public LinkedList<String> getContacts_names() {
         return contacts_names;
     }

@@ -1,3 +1,12 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+/**
+ *
+ * @author munia
+ */
 public class Contact implements Comparable<Contact> {
     private String name;
     private String phonenumber;
@@ -6,16 +15,6 @@ public class Contact implements Comparable<Contact> {
     private String birthday; 
     private String notes;
     private LinkedList<Event> events; 
-   
-    public Contact() {
-        name = "";
-        phonenumber = "";
-        emailaddress = "";
-        address = "";
-        birthday = null;
-        notes = "";
-        events = new LinkedList<Event>();
-    }
 
     public Contact(String name, String phonenumber, String emailaddress, String address, String birthday, String notes) {
         this.name = name;
@@ -36,28 +35,10 @@ public class Contact implements Comparable<Contact> {
                     "\nBirthday: " + birthday +
                     "\nNotes: " + notes + "\n";
     }
-
-   
-     public boolean removeEvent(String title)
-    {
-        if (events.empty()){
-         System.out.println("there is no events available");
-         return false;}
-         
-        Event e = new Event();
-        e.setTitle(title);
-        if (events.search(e))
-        {
-            events.remove(e);
-            return true;
-        }
-        return false;
-    }
-    
-   
-   public int compareTo(Contact c) {
+ 
+    public int compareTo(Contact c) {
         return name.compareTo(c.name);
-}
+    }
 
     public String getName() {
         return name;
