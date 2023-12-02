@@ -26,10 +26,10 @@ public class BST {
     public String findkey(String tkey) {
         BSTNode p = root, q = root;
         if(isEmpty())
-            return "";
+            return null;
         while(p != null) {
             q = p;
-            if(p.key.equalsIgnoreCase(tkey)) {
+             if(p.key.compareToIgnoreCase(tkey)==0){
                 current = p;
                 return p.key;
             }
@@ -39,12 +39,12 @@ public class BST {
                 p = p.right;
         }
         current = q;
-        return "";
+        return null;
     }
     
     public boolean insert(String k, Contact val) {
         BSTNode p, q = current;
-        if(!findkey(k).equals("")) {
+        if(findkey(k)!=null) {
             current = q; // findkey() modified current
             return false; // key already in the BST
         }
